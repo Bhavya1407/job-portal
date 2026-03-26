@@ -1,0 +1,47 @@
+Employer – Employer can post new job requirements, view job applications, shortlisted/reject job application etc.
+Job Seeker – A job seeker is a person who is looking for a job. He can post his resume, search a suitable job, apply for a job etc.
+employer services
+1.Service is Register and Entity is Employer and Data is Organizational Name,Address,ContactNo,Email etc.
+2.Service is Login and Entity is Employer and data is Username & password with validations
+3.service is Post a job and Entity is job and data is Job Title,Location,Description,Experiance,Salary,Notice Period,ContactEmail,status etc
+4.service is edit a job and entity is job and data is Job Title,Location,Description,Experiance,Salary,Notice Period,ContactEmail,status etc
+5.service is delete job and entity is job and data is Job Id
+6.service is view all jobs posted by that employer and entity is job and data is Job Title,Location,Description,Experiance,Salary,Notice Period,ContactEmail,status etc
+7.Service is search job Seekers by skill set and entity is jobseeker and data is Jobseekers,Name,Address,ContactNo,Email,SkillSet etc
+8.service is send message to shortlisted job seeker and entity is EmployerMessage and data is Message ID,description,JobseekerID,Employer ID,date etc.
+9.service is search jobseekers by JobId and entity is job and data is Job Title,Location,Description,Experiance,Salary,Notice Period,ContactEmail,status etc
+10.service is View message sent by jobseeker and entity is JobseekerMessage and data is Message ID,description,JobseekerID,Employer ID,date etc.
+11.service is ViewMessages received by jobid and entity is jobseekerMessage and data is Message ID,description,JobseekerID,Employer ID,date etc.
+JobSeeker Services
+1.service is register and entity is JobSeeker and data is JobSeeker's Name,Address,ContactNo,Email,SkillSet etc
+2.service is Login and Entity is JobSeeker and data is USername &password with validations
+3.service is searchJob by Skills,Designation,Company and entity is job and data is JobTitle ,Location,Description,Experience ,salary,Notice period ,contactemail,status etc
+4.service is search Job by location and entity is job and data is JobTitle ,Location,Description,Experience ,salary,Notice period ,contactemail,status etc
+5.service is Getspecific job Details and entity is job and data is JobTitle ,Location,Description,Experience ,salary,Notice period ,contactemail,status etc
+6.service is Apply for a job and entity is job and data is JobTitle ,Location,Description,Experience ,salary,Notice period ,contactemail,status etc
+7.service is Add favorite jobs in basket and entity is job and data is JobTitle ,Location,Description,Experience ,salary,Notice period ,contactemail,status etc
+8.service is view job basket and entity is job and data is JobTitle ,Location,Description,Experience ,salary,Notice period ,contactemail,status etc
+9.service is remove jobs from basket and entity is job and data is JobTitle ,Location,Description,Experience ,salary,Notice period ,contactemail,status etc
+10.service is apply job from the basket and entity is job and data is JobTitle ,Location,Description,Experience ,salary,Notice period ,contactemail,status etc
+11.service is Send message to employer against a jobid and enitty is jobseekerMessage and data is message id,description,jobseeker id,employer id,data etc
+12.service is view message received by employer and entity is employer message and data is message id,description,jobseeker id,employer id,data etc
+Technology used
+JAVA 8
+Postgres
+Spring Boot
+React
+Technical design document
+Application as Spring Restful Service – CRUD – GET, POST, PUT, DELETE - SOFT
+Implement microservice architecture with proper intercommunication. - FeignCLient
+Implement Custom Exception and Global Exception Handler (completed)
+Implement spring security with oauth2, JWT or ockta (typical)
+Implement Loggers (slf4j) in the service class, controller class and utility classes and store the loggers in the .log file (easy)
+Implement a Response Entity to wrap up the data with HTTP status code. (completed)
+Implement Swagger 2 and Above
+Implement Best practices
+Include Junit 5 and Mockito test cases.
+JUnit Test Code coverage through test cases
+Spring and JPA Integration- Application development using JPA with Hibernate
+PMD - code quality level check
+API Gateway
+using frontend as react
