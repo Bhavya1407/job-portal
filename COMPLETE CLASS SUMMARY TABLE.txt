@@ -1,0 +1,62 @@
+COMPLETE CLASS SUMMARY TABLE
+Class	Package	Purpose
+EmployerServiceApplication	 root	                 Starts the service
+Employer	                entity	                  Database table for employers
+Job	                         entity	                          Database table for jobs
+EmployerMessage	                 entity	                    Database table for messages
+EmployerRegisterRequest	           dto	                Receives registration form data with validations
+LoginRequest	                   dto	                 Receives login form data
+JobRequest	                     dto	Receives job post/edit form data
+JobResponse	                    dto	          Sends job data to frontend
+ApiResponse	                    dto	             Standard wrapper for all API responses
+MessageRequest	                    dto	             Receives message form data
+JobSeekerDTO	                   dto	             Holds job seeker data from Feign calls
+JobSeekerMessageDTO	           dto	             Holds message data from Feign calls
+EmployerRepository	     repository	             DB queries for employers
+JobRepository	              repository	DB queries for jobs including search
+EmployerMessageRepository	repository	DB queries for messages
+EmployerService	               service	        All business logic
+EmployerController	      controller	         All REST API endpoints
+JwtUtil	                         util	          Generate and validate JWT tokens
+SecurityConfig	               config	           Spring Security + BCrypt setup
+SwaggerConfig	               config	             Swagger UI setup
+JobSeekerFeignClient	       feign	            Calls JobSeeker service APIs
+GlobalExceptionHandler	     exception	         Handles all errors in one place
+ResourceNotFoundException	exception	Thrown when data not found
+DuplicateResourceException	exception	Thrown when duplicate data found
+JwtAuthFilter	                gateway	         Validates JWT on every request
+
+
+
+
+
+
+
+COMPLETE CLASS SUMMARY — ALL SERVICES
+Service	Class	Purpose
+JobSeeker	JobSeekerServiceApplication	Starts the service
+JobSeeker	JobSeeker	             Database table — job seeker data
+JobSeeker	JobApplication	              Database table — job applications
+JobSeeker	JobBasket	               Database table — saved jobs basket
+JobSeeker	JobSeekerMessage	          Database table — messages sent to employers
+JobSeeker	JobSeekerRegisterRequest	Receives registration form with validations
+JobSeeker	JobDTO	                          Holds job data received from Employer via Feign
+JobSeeker	EmployerMessageDTO	      Holds message data received from Employer via Feign
+JobSeeker	JobSeekerRepository	      DB queries for job seekers including skill search
+JobSeeker	JobApplicationRepository	DB queries for applications, duplicate check
+JobSeeker	JobBasketRepository	        DB queries for basket, duplicate check
+JobSeeker	JobSeekerMessageRepository	DB queries for messages
+JobSeeker	JobSeekerService	       All business logic — register, login, apply, basket, messages
+JobSeeker	JobSeekerController	         All REST API endpoints
+JobSeeker	JwtUtil	                         Generate and validate JWT tokens
+JobSeeker	SecurityConfig	                Spring Security + BCrypt setup
+JobSeeker	SwaggerConfig	               Swagger UI setup
+JobSeeker	EmployerFeignClient	         Calls Employer service — search jobs, get job details
+JobSeeker	GlobalExceptionHandler	          Handles all errors globally
+JobSeeker	ResourceNotFoundException	Thrown when data not found → 404
+JobSeeker	DuplicateResourceException	Thrown when duplicate data → 409
+API Gateway	ApiGatewayApplication	        Starts the gateway
+API Gateway	JwtAuthFilter	                  Intercepts every request, validates JWT
+API Gateway	JwtUtil	                           Validates JWT tokens only
+API Gateway	SwaggerConfig	                    Aggregates Swagger from both services
+Eureka	       EurekaServerApplication	                   Starts Eureka registry server
