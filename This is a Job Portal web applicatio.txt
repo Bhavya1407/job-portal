@@ -1,0 +1,156 @@
+This is a Job Portal web application where:
+
+Employers can post jobs, search for candidates, and message job seekers
+
+Job Seekers can search for jobs, apply, save jobs to a basket, and message employers
+
+Think of it like a mini version of Naukri.com or LinkedIn Jobs
+
+2. Technology Stack — Why these tools?
+What	Tool	Why
+Website UI	React	Fast, modern web pages
+Backend Logic	Spring Boot + Java	Handles all business logic
+Database	PostgreSQL	Stores all data permanently
+Security	JWT + Spring Security	Keeps user data safe
+Service Discovery	Eureka	Services find each other automatically
+API Gateway	Spring Cloud Gateway	Single entry point for all requests
+Between Services	OpenFeign	Services talk to each other
+3. Architecture — How it all connects
+Imagine it like a building with security:
+
+User (Browser)
+     ↓
+Security Guard (API Gateway - Port 8080)
+     ↓ checks your ID (JWT Token)
+     ↓
+     ├──→ Employer Office (Port 8081)
+     └──→ JobSeeker Office (Port 8082)
+              ↓
+         Filing Cabinet (PostgreSQL Database)
+
+Reception Desk (Eureka - Port 8761)
+→ Tells Gateway where each service is located
+
+Copy
+Eureka is like a phone directory — it knows the address of every service
+
+API Gateway is like a security guard — checks your token before letting you in
+
+Employer Service handles everything related to employers
+
+JobSeeker Service handles everything related to job seekers
+
+PostgreSQL stores all the data permanently
+
+4. Microservices — Why split into multiple services?
+Instead of one big application, the project is split into 4 small independent services:
+
+eureka-server   → Directory of all services
+api-gateway     → Security + Routing
+employer-service → All employer features
+jobseeker-service → All jobseeker features
+
+Copy
+Benefit — If employer service crashes, jobseeker service still works. Each can be updated independently.
+
+5. Request Flow — What happens when you Register?
+You fill form → Click Register
+      ↓
+Request goes to API Gateway (8080)
+      ↓
+Gateway checks: Is this a public path? YES (/register)
+      ↓
+Gateway forwards to Employer Service (8081)
+      ↓
+Service validates your data
+      ↓
+Hashes your password (BCrypt - can't be read)
+      ↓
+Saves to PostgreSQL database
+      ↓
+Returns success message to browser
+
+Copy
+6. JWT — How login security works?
+JWT = JSON Web Token — like a temporary ID card
+
+Step 1: You login with username + password
+Step 2: Server checks credentials → Correct!
+Step 3: Server gives you a TOKEN (like a visitor badge)
+Step 4: Every future request you carry that token
+Step 5: Gateway checks token → Valid → Lets you in
+Step 6: Token expires after 24 hours → Login again
+
+Copy
+Without the token, you cannot access any protected page like Dashboard, Post Job, etc.
+
+7. Database — What data is stored?
+employer_db stores:
+
+Employer details (name, email, password)
+
+Jobs posted by employers
+
+Messages sent to job seekers
+
+jobseeker_db stores:
+
+Job seeker details (name, skills, email)
+
+Jobs they applied for
+
+Jobs saved in basket
+
+Messages sent to employers
+
+8. Feign Client — How services talk to each other?
+When an Employer searches for Job Seekers by skills:
+
+Employer Service needs jobseeker data
+      ↓
+It calls JobSeeker Service using FeignClient
+(like making an internal phone call)
+      ↓
+JobSeeker Service returns matching candidates
+      ↓
+Employer Service shows results to employer
+
+Copy
+They never directly touch each other's database — they always call through APIs.
+
+9. Frontend Pages — What each page does?
+Page	Who uses it	What it does
+Home	Everyone	Choose Employer or Job Seeker
+Employer Register/Login	Employer	Create account, login
+Employer Dashboard	Employer	Post jobs, manage jobs, view applicants
+Employer Messages	Employer	Send/receive messages
+JobSeeker Register/Login	Job Seeker	Create account, login
+JobSeeker Dashboard	Job Seeker	Search jobs, apply, add to basket
+Job Basket	Job Seeker	View saved jobs, apply later
+JobSeeker Messages	Job Seeker	Send/receive messages
+10. Validation Rules — Why registration fails?
+The backend strictly checks every field:
+
+Field	Rule	Example
+Contact Number	Exactly 10 digits	9876543210 ✅ 98765 ❌
+Email	Valid format	a@b.com ✅ abc ❌
+Username	4-20 characters	john123 ✅ jo ❌
+Password	Min 6 characters	pass123 ✅ abc ❌
+11. Startup Order — Why order matters?
+1. PostgreSQL    → Database must be ready first
+2. Eureka        → Directory must be up before services register
+3. Employer Service → Registers itself in Eureka
+4. JobSeeker Service → Registers itself in Eureka
+5. API Gateway   → Needs Eureka to find services
+6. React Frontend → Needs Gateway to be ready
+
+Copy
+If you start Gateway before Eureka, Gateway won't find any services → 504 error.
+
+12. Security Layers — 3 levels of protection
+Level 1 → API Gateway checks JWT token
+Level 2 → Spring Security in each service
+Level 3 → Bean Validation checks input data
+
+Copy
+All 3 must pass for a request to succeed.
